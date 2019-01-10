@@ -1,8 +1,8 @@
 Package: BiProbitPartial
 Type: Package
 Title: Bivariate Probit with Partial Observability
-Version: 1.0.2
-Date: 2019-01-03
+Version: 1.0.3
+Date: 2019-01-10
 Author: Michael Guggisberg and Amrit Romana
 Maintainer: Michael Guggisberg <mguggisb@ida.org>
 Description: A suite of functions to estimate, summarize
@@ -21,6 +21,6 @@ LinkingTo: Rcpp, RcppArmadillo, RcppTN
 RoxygenNote: 6.1.0
 Encoding: UTF-8
 NeedsCompilation: yes
-Packaged: 2019-01-03 14:10:50 UTC; mguggisb
+Packaged: 2019-01-10 13:55:32 UTC; mguggisb
 Repository: CRAN
-Date/Publication: 2019-01-08 16:50:06 UTC
+Date/Publication: 2019-01-10 22:12:04 UTC

@@ -26,7 +26,7 @@ double rhoObjFunc(double rho, arma::mat ystar, arma::mat X1, arma::mat X2, arma:
    // Bug: This condition happens often if used for numDeriv::Hessian
    // This is due to the numerical algorithm evaluating outside the 
    // limits of the domain [-1,1]
-  if (abs(rho) > 1)
+  if (std::fabs(rho) > 1)
     return 99999999999;
   
   int k1 = X1.n_cols;
@@ -413,7 +413,7 @@ arma::mat MCMC1(const arma::mat X1, const arma::mat X2, const arma::mat Z,
       else
         rhoStar = rt(1,nu)[0]*sqrt(SHat * tauSq) + (rhoHat + P*(rho - rhoHat));
       
-      if(abs(rhoStar)<1){
+      if(std::fabs(rhoStar)<1){
 
         double PriorRatio = log(RcppTN::dtn1(rhoStar,rho0,sqrt(v0),-1,1)) - log(RcppTN::dtn1(rho,rho0,sqrt(v0),-1,1));
 
@@ -421,9 +421,7 @@ arma::mat MCMC1(const arma::mat X1, const arma::mat X2, const arma::mat Z,
 
         double ProposalRatio = R::dt((rhoStar-rhoHat)/sqrt(SHat * tauSq),nu, true) - R::dt((rho-rhoHat)/sqrt(SHat * tauSq),nu, true);
 
-        double SupportRatio = log(abs(rhoStar)<1) - log(abs(rho)<1);
-
-        double alpha = PriorRatio + LikelihoodRatio + ProposalRatio + SupportRatio;
+        double alpha = PriorRatio + LikelihoodRatio + ProposalRatio;
         
         if(runif(1)(0) <= exp(alpha)){
  

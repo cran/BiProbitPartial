@@ -38,7 +38,8 @@ for estimation. For Bayesian MCMC estimation \code{philosophy =
 \value{
 \code{BiProbitPartial} returns an \eqn{S \times (k_1+k_2+1)
  \times nchains}{S x (k[1]+k[2]+1) x nchains} array of MCMC draws of primary 
- class \code{mcmc.list} and secondary class \code{BiProbitPartialb}, if \code{philosophy = "bayesian"}. Each element in the 
+ class \code{mcmc.list} and secondary class \code{BiProbitPartialb}, if 
+ \code{philosophy = "bayesian"}. Each element in the 
  first dimension represents a MCMC draw. The first \eqn{k_1}{k[1]} elements 
  in the second dimension are draws for the coefficientss in the first 
  equation. The next \eqn{k_2}{k[2]} elements of the second dimension are draws 
@@ -102,14 +103,14 @@ Models for \code{BiProbitPartial} are specified symbolically. A typical
  model has the form \code{response ~ terms1 | terms2} where \code{response}
  is the name of the (numeric binary) response vector and \code{terms1} and \code{terms2}
  are each a series of terms which specifies a linear predictor for latent response 
- equations 1 and 2. A \code{terms1} specification of the form \code{first +
- second} indicates all the terms in \code{first} together with all the terms
+ equations 1 and 2. A \code{terms1} specification of the form \code{first + second} 
+ indicates all the terms in \code{first} together with all the terms
  in \code{second} with duplicates removed. A specification of the form
  \code{first:second} indicates the set of terms obtained by taking the
  interactions of all terms in \code{first} with all terms in \code{second}.
  The specification \code{first*second} indicates the cross of
- \code{first} and \code{second}. This is the same as \code{first + second +
-  first:second}. Likewise for \code{terms2}.
+ \code{first} and \code{second}. This is the same as 
+ \code{first + second + first:second}. Likewise for \code{terms2}.
 
 A Formula has an implied intercept term for both equations. To remove the
  intercept from equation 1 use either \code{response ~ terms1 - 1 | terms2}
@@ -142,12 +143,15 @@ The \code{control} argument is a list that can supply the tuning parameters
  
  \describe{
  
- \item{beta}{Numeric vector supplying starting values for the coefficients
-  in equations 1 and 2. The first \eqn{k_1}{k[1]} values are for the 
+ \item{beta}{Numeric vector or list of \code{nchains} 
+  elements each a numeric vector supplying starting values for the coefficients
+  in equations 1 and 2. For each vector, the first \eqn{k_1}{k[1]} values are for the 
   coefficients in the first equation. The second \eqn{k_2}{k[2]} values are for 
-  the coefficients in the second equation. Default is \code{beta = numeric( k1 + k2 )}, a vector of zeros.}
+  the coefficients in the second equation. Default is \code{beta = numeric( k1 + k2 )}, 
+  a vector of zeros.}
   
- \item{rho}{Numeric starting value for \eqn{\rho}. Default is \code{rho = 0}}
+ \item{rho}{Numeric or list of \code{nchains} elements each a numeric starting 
+ value for \eqn{\rho}. Default is \code{rho = 0}.}
  
  \item{fixrho}{Logical value to determine if \eqn{\rho} is estimated. If 
   \code{fixrho = TRUE} then \eqn{\rho} is fixed at value \code{rho}. Default 
@@ -164,9 +168,13 @@ The \code{control} argument is a list that can supply the tuning parameters
   and drop all others. Default is \code{thin = 1}, keep all post burn-in draws. 
   For \code{philosophy = "bayesian"} only.}
   
-  \item{seed}{Positive integer fixing the seed of the random number generator. 
+  \item{seed}{Positive integer for \code{nchains = 1} or list of \code{nchains} 
+  elements each a positive integer fixing the seed of the random number generator. 
   Typically used for replication. Default is \code{seed = NULL}, no seed. For 
   \code{philosophy = "bayesian"} only.}
+  
+  \item{nchains}{Positive integer specifying the number of MCMC chains. Default is 
+  \code{nchains = 1}. For \code{philosophy = "bayesian"} only.}
   
  \item{beta0}{Numeric vector supplying the prior mean for the coefficients of
   equations 1 and 2. The first \eqn{k_1}{k[1]} components are for the coefficients

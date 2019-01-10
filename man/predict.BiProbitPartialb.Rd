@@ -74,7 +74,8 @@ If \code{jRule} is specified then this value is 1 if \code{p12 >= jRule}
 Note this produces a 
 Bayesian posterior predictive distribution. This accounts for estimation
 uncertainty. If you desire a simple prediction that does not account for estimation
-uncertainty then the frequentist philosophy should be used.
+uncertainty then the frequentist philosophy should be used. If \code{nchains} is 
+greater than 1 then the chains are combined.
 }
 \examples{
 ##
